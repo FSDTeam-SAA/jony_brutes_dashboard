@@ -1,9 +1,22 @@
-import React from 'react'
+import DashTitle from "../../components/re-usable/dash-title";
+import ServiceTable from "./service";
 
 const Service = () => {
   return (
-    <div>Service</div>
-  )
-}
+    <div className="space-y-5">
+      <div>
+        <DashTitle
+          pathName={`/dashboard/add-commander`}
+          buttonName={"Add Service"}
+          title={"Services"}
+        />
+      </div>
 
-export default Service
+      <div>
+        <ServiceTable />
+      </div>
+    </div>
+  );
+};
+
+export default Service;
