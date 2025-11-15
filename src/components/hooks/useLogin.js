@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VITE_BACKEND_URL;
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (data) => {
-      const response = await axios.post(`${baseURL}/login`, data);
+      const response = await axios.post(`${baseURL}/auth/login`, data);
       return response.data;
     },
   });
