@@ -1,8 +1,22 @@
+import DashTitle from "../../components/re-usable/dash-title";
+import CommanderTable from "./components/commander-table";
 
 const Commander = () => {
   return (
-    <div>Commander</div>
-  )
-}
+    <div className="space-y-5">
+      <div>
+        <DashTitle
+          pathName={`/dashboard/add-commander`}
+          buttonName={"Add Commander"}
+          title={"Commander Info"}
+        />
+      </div>
 
-export default Commander
+      <div>
+        <CommanderTable />
+      </div>
+    </div>
+  );
+};
+
+export default Commander;
