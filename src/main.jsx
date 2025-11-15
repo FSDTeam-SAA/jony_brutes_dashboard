@@ -6,16 +6,19 @@ import { Toaster } from "sonner";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/route";
 import Dashboard from "./dashboard";
+import { AuthProvider } from "./components/context/AuthContext";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}>
-        <Dashboard />
-        <Toaster />
-      </RouterProvider>
+      <AuthProvider>
+        <RouterProvider router={router}>
+          <Dashboard />
+          <Toaster />
+        </RouterProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );
