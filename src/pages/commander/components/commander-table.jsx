@@ -1,8 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 
 const CommanderTable = () => {
-  return (
-    <div>CommanderTable</div>
-  )
-}
+  const { data: commanderInfo = {} } = useQuery({
+    queryKey: ["commander-info"],
+    queryFn: async () => {
+      const res = await fetch(``);
+      const data = await res.json();
+      return data;
+    },
+  });
 
-export default CommanderTable
+  console.log("commanderInfo: ", commanderInfo);
+
+  return <div>CommanderTable</div>;
+};
+
+export default CommanderTable;
