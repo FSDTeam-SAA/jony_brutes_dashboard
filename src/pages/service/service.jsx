@@ -1,5 +1,5 @@
 import DashTitle from "../../components/re-usable/dash-title";
-import ServiceTable from "./service";
+import ServiceTable from "./components/service-table";
 
 const Service = () => {
   return (
