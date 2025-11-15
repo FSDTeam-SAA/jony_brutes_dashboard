@@ -5,11 +5,16 @@ import Commander from "../pages/commander/commander";
 import Reviews from "../pages/reviews/reviews";
 import Service from "../pages/service/service";
 import Units from "../pages/units/units";
+import ForgotPassword from "../pages/forgot-password/forgot-password";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
   },
 
   {
