@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import Login from "../pages/login/Login";
 import Dashboard from "../dashboard";
-import Commands from "../pages/commands/commands";
+import Commander from "../pages/commander/commander";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Commands />,
+        element: <Commander />,
       },
     ],
   },
