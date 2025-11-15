@@ -2,17 +2,39 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../components/context/AuthContext";
+import { useLogin } from "../../components/hooks/useLogin";
+import { toast } from "sonner";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+    const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const {setUser, setAccessToken} = useAuth();
+  const {mutate : login} = useLogin();
+
   const onSubmit = (data) => {
     console.log(data);
+    login(data,{
+      onSuccess: (res) =>{
+        const {user, accessToken} = res.data;
+        setUser(user);
+        setAccessToken(accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", accessToken);
+        toast.success("Login Successful");
+        navigate("/dashboard");
+      },
+      onError: ()=>{
+        toast.error("Invalid Credentials");
+      }
+    })
   };
   return (
     <div className="h-screen w-full flex items-center justify-center">
