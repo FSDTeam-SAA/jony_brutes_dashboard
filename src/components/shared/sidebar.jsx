@@ -1,8 +1,13 @@
-
 const Sidebar = () => {
-  return (
-    <div className='p-5'>sidebar</div>
-  )
-}
+  const items = [
+    {
+      path: "/dashboard/commander",
+      label: "Commander",
+      icon: ""
+    },
+  ];
 
-export default Sidebar
+  return <div className="p-5">sidebar</div>;
+};
+
+export default Sidebar;
