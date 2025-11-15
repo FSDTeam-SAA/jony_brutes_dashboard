@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router";
 import Login from "../pages/login/Login";
 import Dashboard from "../dashboard";
 import Commander from "../pages/commander/commander";
+import Reviews from "../pages/reviews/reviews";
+import Service from "../pages/service/service";
+import Units from "../pages/units/units";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +19,18 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Commander />,
+      },
+      {
+        path: "/dashboard/reviews",
+        element: <Reviews />,
+      },
+      {
+        path: "/dashboard/service",
+        element: <Service />,
+      },
+      {
+        path: "/dashboard/units",
+        element: <Units />,
       },
     ],
   },

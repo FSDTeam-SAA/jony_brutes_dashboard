@@ -35,6 +35,7 @@ const Sidebar = () => {
           <NavLink
             key={index}
             to={item.path}
+            end={item.path === "/dashboard"}
             className={({ isActive }) =>
               `p-2 rounded-lg transition-colors ${
                 isActive
