@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: "/dashboard",
+        index: true,
         element: <Service />,
       },
       {
