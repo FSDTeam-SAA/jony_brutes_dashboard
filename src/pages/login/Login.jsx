@@ -8,36 +8,42 @@ import { useLogin } from "../../components/hooks/useLogin";
 import { toast } from "sonner";
 
 const Login = () => {
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const {setUser, setAccessToken} = useAuth();
-  const {mutate : login} = useLogin();
+  const { setUser, setAccessToken } = useAuth();
+  const { mutate: login } = useLogin();
 
   const token = localStorage.getItem("accessToken");
-  console.log("token", token)
+  console.log("token", token);
 
   const onSubmit = (data) => {
     console.log(data);
-    login(data,{
-      onSuccess: (res) =>{
-        const {user, accessToken} = res.data;
+    login(data, {
+      onSuccess: (res) => {
+        if (!res?.status) {
+          toast.error(res?.message || "Login Failed");
+          return;
+        }
+
+        const { user, accessToken } = res.data;
         setUser(user);
         setAccessToken(accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("accessToken", accessToken);
-        toast.success("Login Successful");
+
+        toast.success(res?.message || "Login Successful");
         navigate("/dashboard");
       },
-      onError: ()=>{
-        toast.error("Invalid Credentials");
-      }
-    })
+
+      onError: (err) => {
+        toast.error(err?.response?.data?.message || "Login Failed");
+      },
+    });
   };
   return (
     <div className="h-screen w-full flex items-center justify-center">
@@ -48,7 +54,10 @@ const Login = () => {
         <p className="text-sm md:text-base lg:text-lg text-center text-primaryleading-normal font-normal pb-1">
           Please Enter Your Details Below to Continue
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3 md:pt-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 pt-3 md:pt-4"
+        >
           {/* email  */}
           <div>
             <label
@@ -75,32 +84,48 @@ const Login = () => {
             >
               Password <sup className="text-red-500 text-base">*</sup>
             </label>
-          <div className="relative">
+            <div className="relative">
               <input
-            type={showPassword ? "text" : "password"}
-              className="w-full h-[49px] rounded-[10px] text-sm md:text-base font-semibold text-primary bg-white border-2 border-white p-2 outline-none placeholder:text-base placeholder:text-gray-300"
-              {...register("password", { required: true })}
-              placeholder="Enter your password..."
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
-            >
-              {showPassword ? <FaRegEyeSlash className="cursor-pointer text-pretty w-5 h-5"/> : <FaRegEye className="cursor-pointer text-pretty w-5 h-5"/>}
-            </button>
-          </div>
+                type={showPassword ? "text" : "password"}
+                className="w-full h-[49px] rounded-[10px] text-sm md:text-base font-semibold text-primary bg-white border-2 border-white p-2 outline-none placeholder:text-base placeholder:text-gray-300"
+                {...register("password", { required: true })}
+                placeholder="Enter your password..."
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              >
+                {showPassword ? (
+                  <FaRegEyeSlash className="cursor-pointer text-pretty w-5 h-5" />
+                ) : (
+                  <FaRegEye className="cursor-pointer text-pretty w-5 h-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
               <span className="text-red-500">This field is required</span>
             )}
           </div>
-            {/* Remember Me & Forgot password  */}
+          {/* Remember Me & Forgot password  */}
           <div className="w-full flex items-center justify-between">
-            <label htmlFor="rememberMe" className="text-sm md:text-base font-medium text-primary leading-normal flex items-center gap-2"> 
-              <input type="checkbox" {...register("rememberMe")} className="cursor-pointer w-4 h-4"/>
-              Remember Me</label>
-              <Link to="/forgot-password" className="text-sm md:text-base font-medium text-primary leading-normal hover:underline">Forgot Password?</Link>
-              
+            <label
+              htmlFor="rememberMe"
+              className="text-sm md:text-base font-medium text-primary leading-normal flex items-center gap-2"
+            >
+              <input
+                type="checkbox"
+                {...register("rememberMe")}
+                className="cursor-pointer w-4 h-4"
+              />
+              Remember Me
+            </label>
+            <Link
+              to="/forgot-password"
+              className="text-sm md:text-base font-medium text-primary leading-normal hover:underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
 
           <div className="w-full flex items-center justify-center pt-4">
