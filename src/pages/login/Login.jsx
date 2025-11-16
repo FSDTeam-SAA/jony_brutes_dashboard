@@ -36,7 +36,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("accessToken", accessToken);
 
-        toast.success(res?.message || "Login Successful");
+        toast.success(res?.message || "Login Successful dff");
         navigate("/dashboard");
       },
 
