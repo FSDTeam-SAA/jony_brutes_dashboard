@@ -6,7 +6,7 @@ const Commander = () => {
     <div className="space-y-5">
       <div>
         <DashTitle
-          pathName={`/dashboard/add-commander`}
+          pathName={`/dashboard/commander/add-commander`}
           buttonName={"Add Commander"}
           title={"Commander Info"}
         />

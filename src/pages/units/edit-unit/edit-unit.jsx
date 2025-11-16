@@ -1,18 +1,18 @@
 import AddDashTitle from "../../../components/re-usable/add-dash-title";
-import AddUnitForm from "./add-unit-form";
+import EditUnitForm from "./edit-unit-form";
 
-const AddUnit = () => {
+const EditUnit = () => {
   return (
     <div className="space-y-5">
       <div>
-        <AddDashTitle title={"Add Unit"} />
+        <AddDashTitle title={"Edit Unit"} />
       </div>
 
       <div>
-        <AddUnitForm />
+        <EditUnitForm />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddUnit
+export default EditUnit;

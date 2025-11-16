@@ -5,7 +5,7 @@ const EditService = () => {
   return (
     <div className="space-y-5">
       <div>
-        <AddDashTitle title={"Add Service"} />
+        <AddDashTitle title={"Edit Service"} />
       </div>
 
       <div>

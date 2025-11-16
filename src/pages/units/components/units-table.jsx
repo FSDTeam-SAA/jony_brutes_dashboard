@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import DeleteUnit from "./delete-unit";
+import { NavLink } from "react-router";
 
 const TableSkeleton = () => {
   return (
@@ -147,9 +148,11 @@ const UnitsTable = () => {
                 </td>
                 <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
                   <div>
-                    <button className="cursor-pointer">
-                      <BiEdit />
-                    </button>
+                    <NavLink to={`/dashboard/units/edit-unit/${unit?._id}`}>
+                      <button className="cursor-pointer">
+                        <BiEdit />
+                      </button>
+                    </NavLink>
                   </div>
 
                   <div>

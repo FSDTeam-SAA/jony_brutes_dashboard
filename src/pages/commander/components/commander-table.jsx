@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import DeleteCommander from "./delete-commander";
+import { NavLink } from "react-router";
 
 const TableSkeleton = () => {
   return (
@@ -261,9 +262,13 @@ const CommanderTable = () => {
                 </td>
                 <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
                   <div>
-                    <button className="cursor-pointer">
-                      <BiEdit />
-                    </button>
+                    <NavLink
+                      to={`/dashboard/commander/edit-commander/${commander?._id}`}
+                    >
+                      <button className="cursor-pointer">
+                        <BiEdit />
+                      </button>
+                    </NavLink>
                   </div>
 
                   <div>
