@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
-import DeleteService from "./delete-service";
+import DeleteUnit from "./delete-unit";
 
 const TableSkeleton = () => {
   return (
@@ -10,9 +10,6 @@ const TableSkeleton = () => {
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Image
-            </th>
-            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
               Name
             </th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -20,6 +17,9 @@ const TableSkeleton = () => {
             </th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
               Created At
+            </th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Updated At
             </th>
             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
               Action
@@ -31,20 +31,19 @@ const TableSkeleton = () => {
           {[...Array(5)].map((_, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="flex justify-center">
-                  <div className="h-12 w-12">
-                    <div className="h-12 w-12 rounded-full bg-gray-200 animate-pulse mx-auto"></div>
-                  </div>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-center">
-                  <div className="h-4 bg-gray-200 rounded w-24 mx-auto animate-pulse"></div>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-center">
                   <div className="h-4 bg-gray-200 rounded w-32 mx-auto animate-pulse"></div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-center">
+                  <div className="h-4 bg-gray-200 rounded w-48 mx-auto animate-pulse"></div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-center">
+                  <div className="h-4 bg-gray-200 rounded w-20 mx-auto animate-pulse mb-1"></div>
+                  <div className="h-3 bg-gray-200 rounded w-16 mx-auto animate-pulse"></div>
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
@@ -79,19 +78,17 @@ const TableSkeleton = () => {
   );
 };
 
-const ServiceTable = () => {
-  const { data: servicesData = {}, isLoading } = useQuery({
-    queryKey: ["services"],
+const UnitsTable = () => {
+  const { data: unitsData = {}, isLoading } = useQuery({
+    queryKey: ["units"],
     queryFn: async () => {
-      const { data } = await axios(
-        `${import.meta.env.VITE_BACKEND_URL}/service`
-      );
+      const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/unit`);
       return data;
     },
   });
 
-  const services = servicesData.data?.services || [];
-  const pagination = servicesData.data?.pagination || {};
+  const units = unitsData.data?.units || [];
+  const pagination = unitsData.data?.paginationInfo || {};
 
   if (isLoading) {
     return <TableSkeleton />;
@@ -99,14 +96,11 @@ const ServiceTable = () => {
 
   return (
     <div>
-      {/* Services Table */}
+      {/* Units Table */}
       <div className="overflow-x-auto bg-white rounded-lg shadow">
         <table className="min-w-full table-auto">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Image
-              </th>
               <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
               </th>
@@ -116,49 +110,35 @@ const ServiceTable = () => {
               <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Created At
               </th>
+
               <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Action
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {services.map((service) => (
-              <tr key={service?._id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex justify-center">
-                    <div className="h-12 w-12">
-                      <img
-                        src={service?.image}
-                        alt={service?.name}
-                        className="h-12 w-12 rounded-full object-cover border border-gray-200 mx-auto"
-                        onError={(e) => {
-                          e.currentTarget.src =
-                            "https://via.placeholder.com/48?text=No+Image";
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
+            {units.map((unit) => (
+              <tr key={unit?._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900 text-center">
-                    {service?.name}
+                    {unit?.name}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500 font-mono text-center">
-                    {service?._id}
+                    {unit?._id}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500 text-center">
-                    {new Date(service?.createdAt).toLocaleDateString("en-US", {
+                    {new Date(unit.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
                     })}
                     <br />
                     <span className="text-xs text-gray-400">
-                      {new Date(service?.createdAt).toLocaleTimeString("en-US", {
+                      {new Date(unit.createdAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}
@@ -173,7 +153,7 @@ const ServiceTable = () => {
                   </div>
 
                   <div>
-                    <DeleteService id={service?._id} />
+                    <DeleteUnit id={unit?._id} />
                   </div>
                 </td>
               </tr>
@@ -187,9 +167,9 @@ const ServiceTable = () => {
         <div className="mt-4 p-4 bg-gray-50 rounded-lg">
           <div className="flex justify-between items-center text-center">
             <div className="text-sm text-gray-600 text-center">
-              Showing <span className="font-semibold">{services.length}</span>{" "}
-              of <span className="font-semibold">{pagination.totalData}</span>{" "}
-              services
+              Showing <span className="font-semibold">{units.length}</span> of{" "}
+              <span className="font-semibold">{pagination.totalData}</span>{" "}
+              units
             </div>
             <div className="text-sm text-gray-600 text-center">
               Page{" "}
@@ -223,7 +203,7 @@ const ServiceTable = () => {
       )}
 
       {/* Empty State */}
-      {services.length === 0 && (
+      {units.length === 0 && (
         <div className="text-center py-12">
           <div className="text-gray-400 mb-4 flex justify-center">
             <svg
@@ -236,13 +216,13 @@ const ServiceTable = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={1}
-                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m8-8V4a1 1 0 00-1-1h-2a1 1 0 00-1 1v1M9 7h6"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-2M7 21H5m2 0h2M7 7h10M7 10h10M7 14h10"
               />
             </svg>
           </div>
-          <p className="text-gray-500 text-lg text-center">No services found</p>
+          <p className="text-gray-500 text-lg text-center">No units found</p>
           <p className="text-gray-400 text-sm mt-2 text-center">
-            There are no services to display at the moment.
+            There are no units to display at the moment.
           </p>
         </div>
       )}
@@ -250,4 +230,4 @@ const ServiceTable = () => {
   );
 };
 
-export default ServiceTable;
+export default UnitsTable;
