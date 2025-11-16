@@ -15,6 +15,7 @@ import EditService from "../pages/service/edit-service/edit-service";
 import EditUnit from "../pages/units/edit-unit/edit-unit";
 import AddCommander from "../pages/commander/add-commander/add-commander";
 import EditCommander from "../pages/commander/edit-commander/edit-commander";
+// import AddReview from "../pages/reviews/add-review/add-review";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
             path: "/dashboard/reviews",
             element: <Reviews />,
           },
+          // {
+          //   path: "/dashboard/reviews/add-review",
+          //   element: <AddReview />,
+          // },
           {
             path: "/dashboard/add-service",
             element: <AddService />,
