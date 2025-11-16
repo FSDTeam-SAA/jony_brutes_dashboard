@@ -4,22 +4,22 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TbTrash } from "react-icons/tb";
 import { toast } from "sonner";
 
-const DeleteService = ({ id }) => {
+const DeleteReview = ({ id }) => {
   const queryclient = useQueryClient();
   const token = localStorage.getItem("accessToken");
 
   const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["delete-service"],
+    mutationKey: ["delete-reviews"],
     mutationFn: async (id) => {
       const { data } = await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/service/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/review/${id}`,
         { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
     },
     onSuccess: (data) => {
       toast.success(data?.message);
-      queryclient.invalidateQueries({ queryKey: ["services"] });
+      queryclient.invalidateQueries({ queryKey: ["reviews"] });
     },
     onError: (error) => {
       const message =
@@ -55,4 +55,4 @@ const DeleteService = ({ id }) => {
   );
 };
 
-export default DeleteService;
+export default DeleteReview;

@@ -34,8 +34,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="min-h-screen pl-5 relative">
-      <div className="pt-10 flex flex-col space-y-4">
+    <div className="pl-5 sticky top-5 z-50">
+      <div className="mt-5 flex flex-col space-y-4">
         {items.map((item, index) => (
           <NavLink
             key={index}
