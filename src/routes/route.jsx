@@ -13,6 +13,7 @@ import AddService from "../pages/service/add-service/add-service";
 import AddUnit from "../pages/units/add-unit/add-unit";
 import EditService from "../pages/service/edit-service/edit-service";
 import EditUnit from "../pages/units/edit-unit/edit-unit";
+import AddCommander from "../pages/commander/add-commander/add-commander";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/units/edit-unit/:id",
             element: <EditUnit />,
+          },
+          {
+            path: "/dashboard/commander/add-commander",
+            element: <AddCommander />,
           },
         ],
       },
