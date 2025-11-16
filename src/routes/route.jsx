@@ -12,6 +12,7 @@ import OtpPage from "../pages/otp/otp";
 import AddService from "../pages/service/add-service/add-service";
 import AddUnit from "../pages/units/add-unit/add-unit";
 import EditService from "../pages/service/edit-service/edit-service";
+// import AddReview from "../pages/reviews/add-review/add-review";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
             path: "/dashboard/reviews",
             element: <Reviews />,
           },
+          // {
+          //   path: "/dashboard/reviews/add-review",
+          //   element: <AddReview />,
+          // },
           {
             path: "/dashboard/add-service",
             element: <AddService />,

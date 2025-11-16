@@ -1,15 +1,12 @@
-import DashTitle from "../../components/re-usable/dash-title";
 import ReviewTable from "./components/review-table";
 
 const Reviews = () => {
   return (
     <div className="space-y-5">
       <div>
-        <DashTitle
-          pathName={`/dashboard/add-review`}
-          buttonName={"Add Review"}
-          title={"Reviews"}
-        />
+        <div className="flex items-center justify-between border border-gray-100 p-5 rounded-lg">
+          <h1 className="text-2xl font-bold">Reviews</h1>
+        </div>
       </div>
 
       <div>
