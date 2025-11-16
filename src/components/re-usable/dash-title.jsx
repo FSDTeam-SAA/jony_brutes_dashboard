@@ -1,4 +1,3 @@
-import React from "react";
 import { PiPlus } from "react-icons/pi";
 import { NavLink } from "react-router";
 
