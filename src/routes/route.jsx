@@ -12,6 +12,9 @@ import OtpPage from "../pages/otp/otp";
 import AddService from "../pages/service/add-service/add-service";
 import AddUnit from "../pages/units/add-unit/add-unit";
 import EditService from "../pages/service/edit-service/edit-service";
+import EditUnit from "../pages/units/edit-unit/edit-unit";
+import AddCommander from "../pages/commander/add-commander/add-commander";
+import EditCommander from "../pages/commander/edit-commander/edit-commander";
 // import AddReview from "../pages/reviews/add-review/add-review";
 
 export const router = createBrowserRouter([
@@ -71,6 +74,18 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/units/add-unit",
             element: <AddUnit />,
+          },
+          {
+            path: "/dashboard/units/edit-unit/:id",
+            element: <EditUnit />,
+          },
+          {
+            path: "/dashboard/commander/add-commander",
+            element: <AddCommander />,
+          },
+          {
+            path: "/dashboard/commander/edit-commander/:id",
+            element: <EditCommander />,
           },
         ],
       },
