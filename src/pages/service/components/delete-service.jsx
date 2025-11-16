@@ -17,8 +17,10 @@ const DeleteService = ({ id }) => {
       );
       return data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
+    onSuccess: () => {
+      const message = "Service Deleted Successfully!";
+      toast.success(message);
+
       queryclient.invalidateQueries({ queryKey: ["services"] });
     },
     onError: (error) => {

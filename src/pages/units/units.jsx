@@ -6,7 +6,7 @@ const Units = () => {
     <div className="space-y-5">
       <div>
         <DashTitle
-          pathName={`/dashboard/add-unit`}
+          pathName={`/dashboard/units/add-unit`}
           buttonName={"Add Unit"}
           title={"Units"}
         />
