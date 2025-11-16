@@ -17,7 +17,7 @@ const ResetPassword = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const email = localStorage.getItem("resetEmail");
+    const email = localStorage.getItem("resetEmail");
   console.log("reset password email", email);
   const newPassword = watch("newPassword");
 
@@ -37,7 +37,7 @@ const ResetPassword = () => {
       }
       toast.success("Password Reset Successful");
       localStorage.removeItem("resetEmail");
-      navigate("/login");
+      navigate("/");
     },
     onError : (err) =>{
         toast.error(err?.response?.data?.message || "Something went wrong");
@@ -133,9 +133,9 @@ const ResetPassword = () => {
                 className="absolute right-3 top-1/2 -translate-y-1/2"
               >
                 {showConfirmPassword ? (
-                  <FaRegEyeSlash className="corsor-pointer w-5 h-5" />
+                  <FaRegEyeSlash className="cursor-pointer w-5 h-5" />
                 ) : (
-                  <FaRegEye className="corsor-pointer w-5 h-5" />
+                  <FaRegEye className="cursor-pointer w-5 h-5" />
                 )}
               </button>
             </div>
@@ -161,87 +161,3 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-
-// import { useMutation } from "@tanstack/react-query";
-// import axios from "axios";
-// import { useForm } from "react-hook-form";
-// import { toast } from "sonner";
-// import { useNavigate } from "react-router";
-
-// const ResetPassword = () => {
-//   const email = localStorage.getItem("resetEmail");
-//   const navigate = useNavigate();
-
-//   const { register, handleSubmit, watch } = useForm();
-
-//   const newPassword = watch("newPassword");
-
-//   const resetMutation = useMutation({
-//     mutationKey: ["resetPassword"],
-//     mutationFn: async (data) => {
-//       const res = await axios.post(
-//         `${import.meta.env.VITE_BACKEND_URL}/auth/reset-password`,
-//         data
-//       );
-//       return res.data;
-//     },
-
-//     onSuccess: (res) => {
-//       if (!res.status) {
-//         toast.error(res.message);
-//         return;
-//       }
-
-//       toast.success("Password Reset Successful");
-//       localStorage.removeItem("resetEmail");
-//       navigate("/");
-//     },
-//   });
-
-//   const onSubmit = (data) => {
-//     resetMutation.mutate({
-//       email: email,
-//       newPassword: data.newPassword,
-//     });
-//   };
-
-//   return (
-//     <div className="h-screen w-full flex items-center justify-center">
-//       <div className="w-full max-w-lg p-6 bg-black/5 rounded-[10px]">
-
-//         <h2 className="text-2xl font-bold text-center">Reset Password</h2>
-
-//         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
-
-//           <input
-//             type="password"
-//             placeholder="New Password"
-//             className="w-full border p-2 rounded"
-//             {...register("newPassword", { required: true })}
-//           />
-
-//           <input
-//             type="password"
-//             placeholder="Confirm Password"
-//             className="w-full border p-2 rounded"
-//             {...register("confirmNewPassword", {
-//               required: true,
-//               validate: (value) =>
-//                 value === newPassword || "Passwords do not match",
-//             })}
-//           />
-
-//           <button
-//             className="w-full h-12 bg-primary text-white rounded-lg"
-//             type="submit"
-//           >
-//             Reset Password
-//           </button>
-
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ResetPassword;

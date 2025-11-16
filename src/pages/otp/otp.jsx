@@ -69,7 +69,7 @@ const OtpPage = () => {
       toast.success("OTP Verified Successfully");
 
       // Optionally store email or token for next step
-      localStorage.setItem("resetEmail", res.data.email);
+      // localStorage.setItem("resetEmail", res.data.email);
 
       // Navigate to reset password page
       navigate("/reset-password");
