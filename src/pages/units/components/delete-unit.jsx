@@ -17,8 +17,8 @@ const DeleteUnit = ({ id }) => {
       );
       return data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
+    onSuccess: () => {
+      toast.success("Unit Deleted Successfully!");
       queryclient.invalidateQueries({ queryKey: ["units"] });
     },
     onError: (error) => {

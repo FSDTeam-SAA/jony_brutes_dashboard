@@ -17,8 +17,8 @@ const DeleteCommander = ({ id }) => {
       );
       return data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
+    onSuccess: () => {
+      toast.success("Commander Deleted Successfully!");
       queryclient.invalidateQueries({ queryKey: ["commanders"] });
     },
     onError: (error) => {

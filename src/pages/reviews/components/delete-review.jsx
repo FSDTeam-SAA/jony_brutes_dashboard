@@ -17,8 +17,8 @@ const DeleteReview = ({ id }) => {
       );
       return data;
     },
-    onSuccess: (data) => {
-      toast.success(data?.message);
+    onSuccess: () => {
+      toast.success("Review Deleted Successfully!");
       queryclient.invalidateQueries({ queryKey: ["reviews"] });
     },
     onError: (error) => {

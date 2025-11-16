@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import DeleteService from "./delete-service";
+import { NavLink } from "react-router";
 
 const TableSkeleton = () => {
   return (
@@ -158,18 +159,23 @@ const ServiceTable = () => {
                     })}
                     <br />
                     <span className="text-xs text-gray-400">
-                      {new Date(service?.createdAt).toLocaleTimeString("en-US", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                      {new Date(service?.createdAt).toLocaleTimeString(
+                        "en-US",
+                        {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        }
+                      )}
                     </span>
                   </div>
                 </td>
                 <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
                   <div>
-                    <button className="cursor-pointer">
-                      <BiEdit />
-                    </button>
+                    <NavLink to={`/dashboard/service/edit-service/${service?._id}`}>
+                      <button className="cursor-pointer">
+                        <BiEdit />
+                      </button>
+                    </NavLink>
                   </div>
 
                   <div>
