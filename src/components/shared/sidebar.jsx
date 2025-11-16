@@ -5,8 +5,11 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import { NavLink } from "react-router";
+import LogoutModal from "../re-usable/LogoutModal";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [openLogout, setOpenLogout] = useState(false);
   const items = [
     {
       path: "/dashboard",
@@ -57,6 +60,15 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </div>
+      <div className="absolute bottom-10 left-0 right-0 w-full pl-5">
+        <button
+          className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer"
+          onClick={() => setOpenLogout(true)}
+        >
+          Logout
+        </button>
+      </div>
+      <LogoutModal isOpen={openLogout} onClose={() => setOpenLogout(false)} />
     </div>
   );
 };
