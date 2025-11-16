@@ -1,8 +1,8 @@
 
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../components/context/AuthContext";
-import { useLogin } from "../../components/hooks/useLogin";
 import { toast } from "sonner";
 
 const ForgotPassword = () => {
@@ -13,25 +13,36 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const {setUser, setAccessToken} = useAuth();
-  const {mutate : login} = useLogin();
+
+const { mutate, isPending } = useMutation({
+  mutationKey: ["forgotPassword"],
+  mutationFn: async (data) => {
+    const res = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/auth/forget-password`,
+      data
+    );
+    return res.data;
+  },
+
+  onSuccess: (res) => {
+    if (!res?.status) {
+      toast.error(res?.message || "Something went wrong");
+      return;
+    }
+
+    toast.success(res?.message || "Password reset link sent");
+    navigate("/login");
+  },
+
+  onError: (err) => {
+    toast.error(err?.response?.data?.message || "Something went wrong");
+  }
+});
+
 
   const onSubmit = (data) => {
     console.log(data);
-    login(data,{
-      onSuccess: (res) =>{
-        const {user, accessToken} = res.data;
-        setUser(user);
-        setAccessToken(accessToken);
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("accessToken", accessToken);
-        toast.success("Login Successful");
-        navigate("/dashboard");
-      },
-      onError: ()=>{
-        toast.error("Invalid Credentials");
-      }
-    })
+    mutate(data)
   };
   return (
     <div className="h-screen w-full flex items-center justify-center">
@@ -64,10 +75,11 @@ const ForgotPassword = () => {
 
           <div className="w-full flex items-center justify-center pt-4">
             <button
+              disabled={isPending}
               type="submit"
               className="w-full h-[49px] bg-primary text-white text-base md:text-lg font-semibold py-1 px-10 rounded-[10px] cursor-pointer"
             >
-              Send OTP
+              {isPending ? "Submitting..." : "Send OTP"}
             </button>
           </div>
         </form>
