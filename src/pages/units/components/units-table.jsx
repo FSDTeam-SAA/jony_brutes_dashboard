@@ -169,7 +169,7 @@ const UnitsTable = () => {
             <div className="text-sm text-gray-600 text-center">
               Showing <span className="font-semibold">{units.length}</span> of{" "}
               <span className="font-semibold">{pagination.totalData}</span>{" "}
-              units
+              commanders
             </div>
             <div className="text-sm text-gray-600 text-center">
               Page{" "}
@@ -181,7 +181,7 @@ const UnitsTable = () => {
                 disabled={!pagination.hasPrevPage}
                 className={`px-3 py-1 text-sm rounded ${
                   pagination.hasPrevPage
-                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    ? "bg-primary text-white hover:bg-primary"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >
@@ -191,7 +191,7 @@ const UnitsTable = () => {
                 disabled={!pagination.hasNextPage}
                 className={`px-3 py-1 text-sm rounded ${
                   pagination.hasNextPage
-                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    ? "bg-primary text-white hover:bg-primary"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >

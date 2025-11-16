@@ -295,7 +295,7 @@ const CommanderTable = () => {
                 disabled={!pagination.hasPrevPage}
                 className={`px-3 py-1 text-sm rounded ${
                   pagination.hasPrevPage
-                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    ? "bg-primary text-white hover:bg-primary"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >
@@ -305,7 +305,7 @@ const CommanderTable = () => {
                 disabled={!pagination.hasNextPage}
                 className={`px-3 py-1 text-sm rounded ${
                   pagination.hasNextPage
-                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    ? "bg-primary text-white hover:bg-primary"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >
