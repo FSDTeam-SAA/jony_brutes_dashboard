@@ -11,6 +11,7 @@ import ResetPassword from "../pages/reset-password/reset-password";
 import OtpPage from "../pages/otp/otp";
 import AddService from "../pages/service/add-service/add-service";
 import AddUnit from "../pages/units/add-unit/add-unit";
+import EditService from "../pages/service/edit-service/edit-service";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/add-service",
             element: <AddService />,
+          },
+          {
+            path: "/dashboard/service/edit-service/:id",
+            element: <EditService />,
           },
           {
             path: "/dashboard/units/add-unit",

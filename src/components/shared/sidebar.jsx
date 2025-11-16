@@ -72,7 +72,7 @@ const Sidebar = () => {
 
   return (
     <div className="min-h-screen pl-5 sticky top-5 z-50">
-      <div className="mt-5 flex flex-col space-y-4">
+      <div className="pt-5 flex flex-col space-y-4">
         {items.map((item, index) => {
           const isActive = isItemActive(item);
           return (
