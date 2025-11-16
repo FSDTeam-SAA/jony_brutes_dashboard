@@ -1,5 +1,3 @@
-
-
 import { createBrowserRouter } from "react-router";
 import Login from "../pages/login/Login";
 import Dashboard from "../dashboard";
@@ -11,6 +9,8 @@ import ForgotPassword from "../pages/forgot-password/forgot-password";
 import ProtectedRoute from "./ProtectedRoute";
 import ResetPassword from "../pages/reset-password/reset-password";
 import OtpPage from "../pages/otp/otp";
+import AddService from "../pages/service/add-service/add-service";
+import AddUnit from "../pages/units/add-unit/add-unit";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +53,14 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/reviews",
             element: <Reviews />,
+          },
+          {
+            path: "/dashboard/add-service",
+            element: <AddService />,
+          },
+          {
+            path: "/dashboard/units/add-unit",
+            element: <AddUnit />,
           },
         ],
       },

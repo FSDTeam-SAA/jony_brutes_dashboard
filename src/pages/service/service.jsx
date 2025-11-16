@@ -6,7 +6,7 @@ const Service = () => {
     <div className="space-y-5">
       <div>
         <DashTitle
-          pathName={`/dashboard/add-commander`}
+          pathName={`/dashboard/add-service`}
           buttonName={"Add Service"}
           title={"Services"}
         />
