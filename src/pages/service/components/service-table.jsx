@@ -1,11 +1,86 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
-import { TbTrash } from "react-icons/tb";
 import DeleteService from "./delete-service";
 
+const TableSkeleton = () => {
+  return (
+    <div className="overflow-x-auto bg-white rounded-lg shadow">
+      <table className="min-w-full table-auto">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Image
+            </th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Name
+            </th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              ID
+            </th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Created At
+            </th>
+            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {/* Skeleton rows */}
+          {[...Array(5)].map((_, index) => (
+            <tr key={index} className="hover:bg-gray-50">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="flex justify-center">
+                  <div className="h-12 w-12">
+                    <div className="h-12 w-12 rounded-full bg-gray-200 animate-pulse mx-auto"></div>
+                  </div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-center">
+                  <div className="h-4 bg-gray-200 rounded w-24 mx-auto animate-pulse"></div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-center">
+                  <div className="h-4 bg-gray-200 rounded w-32 mx-auto animate-pulse"></div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-center">
+                  <div className="h-4 bg-gray-200 rounded w-20 mx-auto animate-pulse mb-1"></div>
+                  <div className="h-3 bg-gray-200 rounded w-16 mx-auto animate-pulse"></div>
+                </div>
+              </td>
+              <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
+                <div className="flex gap-3">
+                  <div className="h-6 w-6 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-6 w-6 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Skeleton Pagination */}
+      <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+        <div className="flex justify-between items-center text-center">
+          <div className="h-4 bg-gray-200 rounded w-40 animate-pulse"></div>
+          <div className="h-4 bg-gray-200 rounded w-32 animate-pulse"></div>
+          <div className="flex justify-center space-x-2">
+            <div className="h-8 w-20 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-8 w-20 bg-gray-200 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ServiceTable = () => {
-  const { data: servicesData = {} } = useQuery({
+  const { data: servicesData = {}, isLoading } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
       const { data } = await axios(
@@ -15,9 +90,12 @@ const ServiceTable = () => {
     },
   });
 
-  // Extract services array from the response
   const services = servicesData.data?.services || [];
   const pagination = servicesData.data?.pagination || {};
+
+  if (isLoading) {
+    return <TableSkeleton />;
+  }
 
   return (
     <div>
