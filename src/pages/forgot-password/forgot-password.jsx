@@ -163,7 +163,7 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full h-[49px] bg-primary text-white rounded-[10px]"
+            className="w-full h-[49px] bg-primary text-white rounded-[10px] cursor-pointer"
           >
             {isPending ? "Sending..." : "Send OTP"}
           </button>

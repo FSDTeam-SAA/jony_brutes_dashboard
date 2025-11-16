@@ -1,6 +1,10 @@
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const ResetPassword = () => {
   const {
@@ -9,14 +13,43 @@ const ResetPassword = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const email = localStorage.getItem("resetEmail");
+  console.log("reset password email", email);
   const newPassword = watch("newPassword");
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["resetPassword"],
+    mutationFn: async (data) => {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/reset-password`,
+        data
+      );
+      return res.data;
+    },
+    onSuccess: (res) => {
+      if (!res?.status) {
+        toast.error(res?.message || "Something went wrong");
+        return;
+      }
+      toast.success("Password Reset Successful");
+      localStorage.removeItem("resetEmail");
+      navigate("/login");
+    },
+    onError : (err) =>{
+        toast.error(err?.response?.data?.message || "Something went wrong");
+    }
+  });
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    mutate({
+      email: email,
+      newPassword: data.newPassword,
+    });
   };
 
   return (
@@ -30,7 +63,6 @@ const ResetPassword = () => {
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
-          
           {/* New Password */}
           <div>
             <label className="block mb-2 font-medium">
@@ -48,12 +80,12 @@ const ResetPassword = () => {
                     value: 6,
                     message: "Password must be at least 6 characters",
                   },
-                //   pattern: {
-                //     value:
-                //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{6,}$/,
-                //     message:
-                //       "Password must include uppercase, lowercase, number & special character",
-                //   },
+                  //   pattern: {
+                  //     value:
+                  //       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{6,}$/,
+                  //     message:
+                  //       "Password must include uppercase, lowercase, number & special character",
+                  //   },
                 })}
               />
 
@@ -62,7 +94,11 @@ const ResetPassword = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2"
               >
-                {showPassword ? <FaRegEyeSlash className="cursor-pointer w-5 h-5"/> : <FaRegEye className="cursor-pointer w-5 h-5"/>}
+                {showPassword ? (
+                  <FaRegEyeSlash className="cursor-pointer w-5 h-5" />
+                ) : (
+                  <FaRegEye className="cursor-pointer w-5 h-5" />
+                )}
               </button>
             </div>
 
@@ -93,12 +129,14 @@ const ResetPassword = () => {
 
               <button
                 type="button"
-                onClick={() =>
-                  setShowConfirmPassword(!showConfirmPassword)
-                }
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2"
               >
-                {showConfirmPassword ? <FaRegEyeSlash className="corsor-pointer w-5 h-5"/> : <FaRegEye className="corsor-pointer w-5 h-5"/>}
+                {showConfirmPassword ? (
+                  <FaRegEyeSlash className="corsor-pointer w-5 h-5" />
+                ) : (
+                  <FaRegEye className="corsor-pointer w-5 h-5" />
+                )}
               </button>
             </div>
 
@@ -111,9 +149,10 @@ const ResetPassword = () => {
 
           <button
             type="submit"
+            disabled={isPending}
             className="w-full h-[49px] bg-primary text-white font-semibold rounded-[10px] mt-2 cursor-pointer"
           >
-            Reset Password
+            {isPending ? "Resetting..." : "Reset Password"}
           </button>
         </form>
       </div>
@@ -122,8 +161,6 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-
-
 
 // import { useMutation } from "@tanstack/react-query";
 // import axios from "axios";
@@ -208,4 +245,3 @@ export default ResetPassword;
 // };
 
 // export default ResetPassword;
-
