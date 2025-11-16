@@ -114,7 +114,7 @@ const ReviewTable = () => {
         <div className="flex items-center">
           <span className="text-yellow-400 text-lg">★</span>
           <span className="ml-1 text-sm font-medium text-gray-700">
-            {rating}/10
+            {rating}/5
           </span>
         </div>
       </div>
@@ -188,11 +188,11 @@ const ReviewTable = () => {
                   </div>
                 </td>
                 <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
-                  <div>
+                  {/* <div>
                     <button className="cursor-pointer">
                       <BiEdit />
                     </button>
-                  </div>
+                  </div> */}
 
                   <div>
                     <DeleteReview id={review?._id} />

@@ -63,6 +63,7 @@ const Sidebar = () => {
       case "Reviews":
         return (
           location.pathname === "/dashboard/reviews" ||
+          location.pathname === "/dashboard/reviews/add-review" ||
           location.pathname.startsWith("/dashboard/reviews/")
         );
 
@@ -73,7 +74,7 @@ const Sidebar = () => {
 
   return (
     <div className="min-h-screen pl-5 sticky top-5 z-50">
-      <div className="pt-5 flex flex-col space-y-4">
+      <div className={` flex flex-col space-y-4 ${location?.pathname === "/dashboard/commander" ? "pt-0" : "pt-5"}`}>
         {items.map((item, index) => {
           const isActive = isItemActive(item);
           return (
