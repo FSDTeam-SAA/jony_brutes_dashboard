@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import { TbTrash } from "react-icons/tb";
+import DeleteService from "./delete-service";
 
 const ServiceTable = () => {
   const { data: servicesData = {} } = useQuery({
@@ -87,13 +88,15 @@ const ServiceTable = () => {
                   </div>
                 </td>
                 <td className="flex items-center justify-center gap-3 mt-8 text-xl text-gray-600">
-                  <button className="cursor-pointer">
-                    <BiEdit />
-                  </button>
+                  <div>
+                    <button className="cursor-pointer">
+                      <BiEdit />
+                    </button>
+                  </div>
 
-                  <button className="cursor-pointer">
-                    <TbTrash />
-                  </button>
+                  <div>
+                    <DeleteService />
+                  </div>
                 </td>
               </tr>
             ))}
