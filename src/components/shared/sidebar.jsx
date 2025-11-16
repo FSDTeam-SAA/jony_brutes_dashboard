@@ -7,6 +7,7 @@ import {
 import { NavLink, useLocation } from "react-router";
 import LogoutModal from "../re-usable/LogoutModal";
 import { useState } from "react";
+import { MdOutlineLogout } from "react-icons/md";
 
 const Sidebar = () => {
   const [openLogout, setOpenLogout] = useState(false);
@@ -97,10 +98,10 @@ const Sidebar = () => {
       </div>
       <div className="absolute bottom-10 left-0 right-0 w-full pl-5">
         <button
-          className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white text-base md:text-lg font-medium rounded-lg hover:bg-red-600 cursor-pointer"
           onClick={() => setOpenLogout(true)}
         >
-          Logout
+         <MdOutlineLogout className="w-6 h-6"/> Logout
         </button>
       </div>
       <LogoutModal isOpen={openLogout} onClose={() => setOpenLogout(false)} />
